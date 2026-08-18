@@ -1,0 +1,66 @@
+[
+    {
+        "id": "reel_01",
+        "title": "Gaming Setup Battle",
+        "caption": "My ultimate gaming setup!",
+        "transcript": "Today I am showing my gaming setup, mechanical keyboard and high refresh rate monitor.",
+        "visual_description": "A person showing a gaming PC, mechanical keyboard and monitor.",
+        "category": "Gaming"
+    },
+    {
+        "id": "reel_02",
+        "title": "Java Developer Meme",
+        "caption": "Every Java developer understands this",
+        "transcript": "When your Java code finally works after changing one line.",
+        "visual_description": "A software developer working in an IDE with Java code.",
+        "category": "Programming"
+    },
+    {
+        "id": "reel_03",
+        "title": "Coding Interview Joke",
+        "caption": "When the interviewer asks you to reverse a linked list.",
+        "transcript": "Me preparing for interviews and suddenly getting a difficult data structures question.",
+        "visual_description": "A programmer reacting humorously to a coding interview question.",
+        "category": "DSA"
+    },
+    {
+        "id": "reel_04",
+        "title": "AI Explained",
+        "caption": "How generative AI actually works",
+        "transcript": "Large language models learn patterns from huge amounts of training data and generate text based on context.",
+        "visual_description": "Animation showing an AI neural network and language model concepts.",
+        "category": "AI"
+    },
+    {
+        "id": "reel_05",
+        "title": "Laptop Comparison",
+        "caption": "Which laptop is better for programmers?",
+        "transcript": "Let's compare processor performance, RAM, storage and battery life for software development.",
+        "visual_description": "Two laptops are compared side by side with specifications displayed.",
+        "category": "Hardware"
+    },
+    {
+        "id": "reel_06",
+        "title": "Software Engineer Lifestyle",
+        "caption": "A day in the life of a software engineer",
+        "transcript": "My day includes writing code, reviewing pull requests, debugging applications and attending team meetings.",
+        "visual_description": "A software engineer working at a desk with code on multiple monitors.",
+        "category": "Career"
+    },
+    {
+        "id": "reel_07",
+        "title": "Latest Tech News",
+        "caption": "New technology trends developers should know",
+        "transcript": "Here are some recent developments in cloud computing, artificial intelligence and developer tools.",
+        "visual_description": "Technology news graphics showing cloud, AI and software development concepts.",
+        "category": "Tech News"
+    },
+    {
+        "id": "reel_08",
+        "title": "Funny College Moment",
+        "caption": "When the professor says the assignment is easy",
+        "transcript": "Everyone thought the assignment would be simple but it turned into a very long night.",
+        "visual_description": "Students reacting humorously to a difficult college assignment.",
+        "category": "Entertainment"
+    }
+]

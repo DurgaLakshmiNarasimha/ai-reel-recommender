@@ -1,0 +1,74 @@
+[
+    {
+        "id": "tech_01",
+        "title": "DSA Patterns Every Software Engineer Should Know",
+        "description": "Learn important data structure and algorithm patterns used in coding interviews.",
+        "category": "DSA",
+        "difficulty": "Intermediate",
+        "educational_value": 0.95,
+        "hype_score": 0.05
+    },
+    {
+        "id": "tech_02",
+        "title": "How Git Is Used in Real Software Teams",
+        "description": "Understand branches, pull requests, code reviews and collaborative development.",
+        "category": "Career",
+        "difficulty": "Beginner",
+        "educational_value": 0.92,
+        "hype_score": 0.03
+    },
+    {
+        "id": "tech_03",
+        "title": "Java Collections Explained",
+        "description": "Understand List, Set, Map and when developers use each collection.",
+        "category": "Java",
+        "difficulty": "Intermediate",
+        "educational_value": 0.90,
+        "hype_score": 0.10
+    },
+    {
+        "id": "tech_04",
+        "title": "Build Your First RAG Application",
+        "description": "Learn how retrieval augmented generation works and how developers build RAG applications.",
+        "category": "AI",
+        "difficulty": "Advanced",
+        "educational_value": 0.96,
+        "hype_score": 0.08
+    },
+    {
+        "id": "tech_05",
+        "title": "How Cloud Servers Actually Work",
+        "description": "Understand virtual machines, storage, networking and cloud deployment.",
+        "category": "Cloud",
+        "difficulty": "Intermediate",
+        "educational_value": 0.94,
+        "hype_score": 0.04
+    },
+    {
+        "id": "tech_06",
+        "title": "Laptop Specs Every Programmer Should Understand",
+        "description": "Learn how CPU, RAM, SSD and GPU affect software development workloads.",
+        "category": "Hardware",
+        "difficulty": "Beginner",
+        "educational_value": 0.88,
+        "hype_score": 0.12
+    },
+    {
+        "id": "tech_07",
+        "title": "10 AI Tools That Will Definitely Get You a Job",
+        "description": "A list of supposedly powerful AI tools that claims they can guarantee career success.",
+        "category": "Career",
+        "difficulty": "Beginner",
+        "educational_value": 0.30,
+        "hype_score": 0.95
+    },
+    {
+        "id": "tech_08",
+        "title": "System Design Basics for Beginners",
+        "description": "Learn scalability, load balancing, caching and basic architecture concepts.",
+        "category": "HLD",
+        "difficulty": "Intermediate",
+        "educational_value": 0.94,
+        "hype_score": 0.05
+    }
+]

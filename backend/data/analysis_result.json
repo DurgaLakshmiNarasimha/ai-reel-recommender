@@ -1,0 +1,135 @@
+{
+    "analyses": [
+        {
+            "id": "reel_01",
+            "main_topic": "Gaming Setups & Hardware Showcase",
+            "subtopics": [
+                "Mechanical Keyboards",
+                "Gaming Monitors",
+                "PC Hardware",
+                "Desk Aesthetics"
+            ],
+            "context": "A casual showcase of a gaming computer setup and peripherals.",
+            "apparent_interest": "PC Gaming Culture and Hardware",
+            "difficulty": "Beginner",
+            "confidence": "High",
+            "reason": "The Reel focuses on gaming hardware, peripherals and computer setup."
+        },
+        {
+            "id": "reel_02",
+            "main_topic": "Software Development Humor",
+            "subtopics": [
+                "Debugging",
+                "Java Programming",
+                "Software Engineering Culture"
+            ],
+            "context": "A programming meme about debugging.",
+            "apparent_interest": "Software Engineering",
+            "difficulty": "Beginner",
+            "confidence": "High",
+            "reason": "The underlying theme is software development and debugging rather than only Java."
+        },
+        {
+            "id": "reel_03",
+            "main_topic": "Software Engineering Interview Preparation",
+            "subtopics": [
+                "Data Structures & Algorithms",
+                "Technical Interviews",
+                "Programming"
+            ],
+            "context": "A coding interview joke about common DSA problems.",
+            "apparent_interest": "Software Engineering",
+            "difficulty": "Intermediate",
+            "confidence": "High",
+            "reason": "The Reel focuses on coding interviews and fundamental computer science concepts."
+        },
+        {
+            "id": "reel_04",
+            "main_topic": "Generative AI",
+            "subtopics": [
+                "Large Language Models",
+                "Machine Learning",
+                "Natural Language Processing"
+            ],
+            "context": "Educational explanation of AI concepts.",
+            "apparent_interest": "Artificial Intelligence",
+            "difficulty": "Beginner",
+            "confidence": "High",
+            "reason": "The content explains AI and LLM concepts."
+        },
+        {
+            "id": "reel_05",
+            "main_topic": "Software Engineering",
+            "subtopics": [
+                "Programming",
+                "Computer Hardware",
+                "Developer Workstations"
+            ],
+            "context": "Comparison of laptops for technical workloads.",
+            "apparent_interest": "Software Engineering and Technology",
+            "difficulty": "Beginner",
+            "confidence": "High",
+            "reason": "The laptop comparison is connected to technology and programming workloads."
+        },
+        {
+            "id": "reel_06",
+            "main_topic": "Software Engineering Lifestyle",
+            "subtopics": [
+                "Programming",
+                "Developer Lifestyle",
+                "Technology Careers"
+            ],
+            "context": "A Reel showing the lifestyle of a software engineer.",
+            "apparent_interest": "Software Engineering",
+            "difficulty": "Beginner",
+            "confidence": "High",
+            "reason": "The content represents software engineering as a career and lifestyle."
+        },
+        {
+            "id": "reel_07",
+            "main_topic": "Technology News",
+            "subtopics": [
+                "Technology",
+                "Software",
+                "Industry News"
+            ],
+            "context": "A Reel discussing recent technology developments.",
+            "apparent_interest": "Technology",
+            "difficulty": "Beginner",
+            "confidence": "Medium",
+            "reason": "The Reel indicates general interest in technology."
+        },
+        {
+            "id": "reel_08",
+            "main_topic": "College Life & Student Humor",
+            "subtopics": [
+                "Student Lifestyle",
+                "Academic Stress",
+                "College Life"
+            ],
+            "context": "A humorous Reel about college assignments and student experiences.",
+            "apparent_interest": "College Student Lifestyle",
+            "difficulty": "Beginner",
+            "confidence": "High",
+            "reason": "The content is about relatable college experiences rather than technology."
+        }
+    ],
+    "overall_interest": {
+        "primary_interest": "Software Engineering and Technology",
+        "secondary_interests": [
+            "Artificial Intelligence",
+            "Computer Hardware",
+            "Programming",
+            "Technology Careers"
+        ],
+        "evidence": [
+            "Java developer meme",
+            "Coding interview joke",
+            "Software engineer lifestyle",
+            "Laptop comparison",
+            "Technology news",
+            "AI explained"
+        ],
+        "confidence": "High"
+    }
+}

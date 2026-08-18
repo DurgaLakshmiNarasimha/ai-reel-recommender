@@ -1,0 +1,35 @@
+[
+    {
+        "id": "dynamic_01",
+        "title": "Build a REST API with Flask",
+        "description": "Learn how developers create backend APIs using Python and Flask.",
+        "category": "Python",
+        "difficulty": "Intermediate",
+        "educational_value": 0.94,
+        "hype_score": 0.04,
+        "source": "Dynamic Dataset",
+        "url": "https://example.com/reel/dynamic_01"
+    },
+    {
+        "id": "dynamic_02",
+        "title": "Docker Containers Explained Simply",
+        "description": "Understand containers, images and how Docker is used in modern development.",
+        "category": "Cloud",
+        "difficulty": "Intermediate",
+        "educational_value": 0.96,
+        "hype_score": 0.06,
+        "source": "Dynamic Dataset",
+        "url": "https://example.com/reel/dynamic_02"
+    },
+    {
+        "id": "dynamic_03",
+        "title": "Introduction to Machine Learning",
+        "description": "Understand the basic concepts behind machine learning and intelligent applications.",
+        "category": "AI",
+        "difficulty": "Beginner",
+        "educational_value": 0.91,
+        "hype_score": 0.08,
+        "source": "Dynamic Dataset",
+        "url": "https://example.com/reel/dynamic_03"
+    }
+]
