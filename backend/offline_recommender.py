@@ -48,20 +48,41 @@ def load_all_reels():
         "dynamic_reels.json"
     )
 
-    # Combine both datasets
-    all_reels = (
-        static_reels
-        + dynamic_reels
-    )
-
-    return all_reels
+    return static_reels + dynamic_reels
 
 
 # --------------------------------------------------
-# CALCULATE RELEVANCE
+# LOAD USER BEHAVIOR PROFILE
 # --------------------------------------------------
 
-def calculate_relevance(reel, interest):
+def load_user_behavior_profile():
+
+    try:
+
+        from user_interest import UserInterestProfile
+
+        profile = UserInterestProfile()
+
+        return profile.get_profile()
+
+    except Exception as e:
+
+        print(
+            "User behavior profile error:",
+            e
+        )
+
+        return {}
+
+
+# --------------------------------------------------
+# CALCULATE BASE RELEVANCE
+# --------------------------------------------------
+
+def calculate_relevance(
+    reel,
+    interest
+):
 
     category = reel.get(
         "category",
@@ -92,6 +113,43 @@ def calculate_relevance(reel, interest):
             return 0.98
 
     return 0.50
+
+
+# --------------------------------------------------
+# CALCULATE BEHAVIOR MATCH
+# --------------------------------------------------
+
+def calculate_behavior_match(
+    reel,
+    user_interest_profile
+):
+
+    if not user_interest_profile:
+        return 0.0
+
+    scores = user_interest_profile.get(
+        "scores",
+        {}
+    )
+
+    category = str(
+        reel.get(
+            "category",
+            ""
+        )
+    ).lower()
+
+    behavior_score = float(
+        scores.get(
+            category,
+            0
+        )
+    )
+
+    return min(
+        behavior_score / 100.0,
+        1.0
+    )
 
 
 # --------------------------------------------------
@@ -157,17 +215,38 @@ def calculate_difficulty_match(
 # MAIN RECOMMENDATION FUNCTION
 # --------------------------------------------------
 
-def generate_offline_recommendation():
+def generate_offline_recommendation(
+    user_interest_profile=None
+):
 
-    # Load AI analysis
+    # --------------------------------------------------
+    # LOAD AI ANALYSIS
+    # --------------------------------------------------
+
     analysis_data = load_json(
         "analysis_result.json"
     )
 
-    # Load static + dynamic reels
+    # --------------------------------------------------
+    # LOAD ALL REELS
+    # --------------------------------------------------
+
     tech_reels = load_all_reels()
 
-    # Get user interest
+    # --------------------------------------------------
+    # LOAD USER BEHAVIOR AUTOMATICALLY
+    # --------------------------------------------------
+
+    if user_interest_profile is None:
+
+        user_interest_profile = (
+            load_user_behavior_profile()
+        )
+
+    # --------------------------------------------------
+    # GET INITIAL AI INTEREST
+    # --------------------------------------------------
+
     interest_profile = analysis_data[
         "overall_interest"
     ]
@@ -175,6 +254,26 @@ def generate_offline_recommendation():
     interest = interest_profile[
         "primary_interest"
     ].lower()
+
+    # --------------------------------------------------
+    # IF USER HAS BEHAVIOR DATA,
+    # USE IT TO IMPROVE INTEREST
+    # --------------------------------------------------
+
+    behavior_primary_interest = (
+        user_interest_profile.get(
+            "primary_interest",
+            ""
+        )
+        if user_interest_profile
+        else ""
+    )
+
+    if behavior_primary_interest:
+
+        interest = (
+            behavior_primary_interest.lower()
+        )
 
     user_difficulty = "Intermediate"
 
@@ -186,18 +285,32 @@ def generate_offline_recommendation():
 
     for reel in tech_reels:
 
+        # ----------------------------------------------
+        # AI / CONTENT RELEVANCE
+        # ----------------------------------------------
+
         relevance = calculate_relevance(
             reel,
             interest
         )
 
-        difficulty_match = calculate_difficulty_match(
-            reel.get(
-                "difficulty",
-                "Intermediate"
-            ),
-            user_difficulty
+        # ----------------------------------------------
+        # DIFFICULTY
+        # ----------------------------------------------
+
+        difficulty_match = (
+            calculate_difficulty_match(
+                reel.get(
+                    "difficulty",
+                    "Intermediate"
+                ),
+                user_difficulty
+            )
         )
+
+        # ----------------------------------------------
+        # EDUCATIONAL VALUE
+        # ----------------------------------------------
 
         educational_value = float(
             reel.get(
@@ -206,6 +319,10 @@ def generate_offline_recommendation():
             )
         )
 
+        # ----------------------------------------------
+        # HYPE SCORE
+        # ----------------------------------------------
+
         hype_score = float(
             reel.get(
                 "hype_score",
@@ -213,25 +330,82 @@ def generate_offline_recommendation():
             )
         )
 
-        score = calculate_score(
+        # ----------------------------------------------
+        # USER BEHAVIOR MATCH
+        # ----------------------------------------------
+
+        behavior_match = (
+            calculate_behavior_match(
+                reel,
+                user_interest_profile
+            )
+        )
+
+        # ----------------------------------------------
+        # ORIGINAL SCORE
+        # ----------------------------------------------
+
+        base_score = calculate_score(
             relevance,
             educational_value,
             difficulty_match,
             hype_score
         )
 
+        # ----------------------------------------------
+        # BEHAVIOR BONUS
+        # ----------------------------------------------
+
+        behavior_bonus = (
+            behavior_match * 15
+        )
+
+        # ----------------------------------------------
+        # FINAL SCORE
+        # ----------------------------------------------
+
+        final_score = min(
+            base_score + behavior_bonus,
+            100
+        )
+
+        # ----------------------------------------------
+        # STORE RESULT
+        # ----------------------------------------------
+
         scored_reels.append({
 
             **reel,
 
             "relevance":
-                relevance,
+                round(
+                    relevance,
+                    2
+                ),
 
             "difficulty_match":
-                difficulty_match,
+                round(
+                    difficulty_match,
+                    2
+                ),
+
+            "behavior_match":
+                round(
+                    behavior_match,
+                    2
+                ),
+
+            "behavior_bonus":
+                round(
+                    behavior_bonus,
+                    2
+                ),
 
             "score":
-                score
+                round(
+                    final_score,
+                    2
+                )
         })
 
     # --------------------------------------------------
@@ -241,6 +415,17 @@ def generate_offline_recommendation():
     ranked = rank_reels(
         scored_reels
     )
+
+    # --------------------------------------------------
+    # SAFETY CHECK
+    # --------------------------------------------------
+
+    if not ranked:
+
+        return {
+            "status": "error",
+            "message": "No reels available"
+        }
 
     # --------------------------------------------------
     # API RESULT
@@ -259,10 +444,24 @@ def generate_offline_recommendation():
                 "primary_interest"
             ],
 
+        "behavior_interest":
+            user_interest_profile.get(
+                "primary_interest",
+                "None"
+            ),
+
         "confidence":
             interest_profile[
                 "confidence"
             ],
+
+        "user_behavior_profile":
+            user_interest_profile
+            or {},
+
+        # ----------------------------------------------
+        # TOP RECOMMENDATION
+        # ----------------------------------------------
 
         "recommended_reel": {
 
@@ -296,6 +495,24 @@ def generate_offline_recommendation():
                     0
                 ),
 
+            "relevance":
+                ranked[0].get(
+                    "relevance",
+                    0
+                ),
+
+            "behavior_match":
+                ranked[0].get(
+                    "behavior_match",
+                    0
+                ),
+
+            "behavior_bonus":
+                ranked[0].get(
+                    "behavior_bonus",
+                    0
+                ),
+
             "score":
                 ranked[0]["score"],
 
@@ -311,6 +528,10 @@ def generate_offline_recommendation():
                     ""
                 )
         },
+
+        # ----------------------------------------------
+        # COMPLETE RANKING
+        # ----------------------------------------------
 
         "ranking": [
 
@@ -334,6 +555,12 @@ def generate_offline_recommendation():
                 "score":
                     reel["score"],
 
+                "relevance":
+                    reel.get(
+                        "relevance",
+                        0
+                    ),
+
                 "hype_score":
                     reel.get(
                         "hype_score",
@@ -343,6 +570,18 @@ def generate_offline_recommendation():
                 "educational_value":
                     reel.get(
                         "educational_value",
+                        0
+                    ),
+
+                "behavior_match":
+                    reel.get(
+                        "behavior_match",
+                        0
+                    ),
+
+                "behavior_bonus":
+                    reel.get(
+                        "behavior_bonus",
                         0
                     ),
 
@@ -371,7 +610,9 @@ def generate_offline_recommendation():
 
 if __name__ == "__main__":
 
-    result = generate_offline_recommendation()
+    result = (
+        generate_offline_recommendation()
+    )
 
     print(
         "\n" + "=" * 60
@@ -391,8 +632,13 @@ if __name__ == "__main__":
     )
 
     print(
-        "Interest:",
+        "AI Interest:",
         result["interest_detected"]
+    )
+
+    print(
+        "Behavior Interest:",
+        result["behavior_interest"]
     )
 
     print(
@@ -432,6 +678,20 @@ if __name__ == "__main__":
     )
 
     print(
+        "Behavior Match:",
+        result[
+            "recommended_reel"
+        ]["behavior_match"]
+    )
+
+    print(
+        "Behavior Bonus:",
+        result[
+            "recommended_reel"
+        ]["behavior_bonus"]
+    )
+
+    print(
         "Source:",
         result[
             "recommended_reel"
@@ -456,5 +716,7 @@ if __name__ == "__main__":
             f'{reel["rank"]}. '
             f'{reel["title"]} '
             f'| Score: {reel["score"]} '
+            f'| Behavior Bonus: '
+            f'{reel["behavior_bonus"]} '
             f'| Source: {reel["source"]}'
         )
