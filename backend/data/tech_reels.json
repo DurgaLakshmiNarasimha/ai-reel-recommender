@@ -6,7 +6,8 @@
         "category": "DSA",
         "difficulty": "Intermediate",
         "educational_value": 0.95,
-        "hype_score": 0.05
+        "hype_score": 0.05,
+        "url": "https://www.youtube.com/results?search_query=DSA+patterns+software+engineering"
     },
     {
         "id": "tech_02",
@@ -15,7 +16,8 @@
         "category": "Career",
         "difficulty": "Beginner",
         "educational_value": 0.92,
-        "hype_score": 0.03
+        "hype_score": 0.03,
+        "url": "https://www.youtube.com/results?search_query=Git+real+software+teams"
     },
     {
         "id": "tech_03",
@@ -24,7 +26,8 @@
         "category": "Java",
         "difficulty": "Intermediate",
         "educational_value": 0.90,
-        "hype_score": 0.10
+        "hype_score": 0.10,
+        "url": "https://www.youtube.com/results?search_query=Java+Collections+explained"
     },
     {
         "id": "tech_04",
@@ -33,7 +36,8 @@
         "category": "AI",
         "difficulty": "Advanced",
         "educational_value": 0.96,
-        "hype_score": 0.08
+        "hype_score": 0.08,
+        "url": "https://www.youtube.com/results?search_query=Build+RAG+Application"
     },
     {
         "id": "tech_05",
@@ -42,7 +46,8 @@
         "category": "Cloud",
         "difficulty": "Intermediate",
         "educational_value": 0.94,
-        "hype_score": 0.04
+        "hype_score": 0.04,
+        "url": "https://www.youtube.com/results?search_query=how+cloud+servers+work"
     },
     {
         "id": "tech_06",
@@ -51,7 +56,8 @@
         "category": "Hardware",
         "difficulty": "Beginner",
         "educational_value": 0.88,
-        "hype_score": 0.12
+        "hype_score": 0.12,
+        "url": "https://www.youtube.com/results?search_query=laptop+specs+programmers"
     },
     {
         "id": "tech_07",
@@ -60,7 +66,8 @@
         "category": "Career",
         "difficulty": "Beginner",
         "educational_value": 0.30,
-        "hype_score": 0.95
+        "hype_score": 0.95,
+        "url": "https://www.youtube.com/results?search_query=AI+tools+for+developers"
     },
     {
         "id": "tech_08",
@@ -69,6 +76,7 @@
         "category": "HLD",
         "difficulty": "Intermediate",
         "educational_value": 0.94,
-        "hype_score": 0.05
+        "hype_score": 0.05,
+        "url": "https://www.youtube.com/results?search_query=System+Design+Basics"
     }
 ]
