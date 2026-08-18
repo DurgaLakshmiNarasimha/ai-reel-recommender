@@ -192,11 +192,77 @@
             font-size: 15px;
         }
 
+        /* ------------------------------------------
+           USER BEHAVIOR PANEL
+        ------------------------------------------ */
+
+        .behavior-card {
+            margin-top: 22px;
+            border-color: #475569;
+        }
+
+        .behavior-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .behavior-stat {
+            padding: 15px;
+            border-radius: 14px;
+            background: rgba(30, 41, 59, 0.55);
+            border: 1px solid #334155;
+        }
+
+        .behavior-stat span {
+            display: block;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .behavior-stat strong {
+            font-size: 18px;
+        }
+
+        .behavior-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .behavior-button {
+            padding: 11px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            box-shadow: none;
+        }
+
+        .like-button {
+            background: linear-gradient(135deg, #db2777, #9333ea);
+        }
+
+        .next-button {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+        }
+
+        .rewatch-button {
+            background: linear-gradient(135deg, #0891b2, #2563eb);
+        }
+
+        .behavior-message {
+            margin-top: 15px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
         .score-section {
             display: grid;
             grid-template-columns: 180px 1fr;
             align-items: center;
             gap: 30px;
+            margin-top: 22px;
         }
 
         .score-circle {
@@ -323,7 +389,6 @@
             grid-template-columns: 55px 1fr 90px;
             align-items: center;
             gap: 15px;
-
             padding: 16px 18px;
             border-radius: 14px;
             background: rgba(30, 41, 59, 0.55);
@@ -379,7 +444,6 @@
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
         }
 
         button:disabled {
@@ -398,10 +462,6 @@
             color: white;
             text-decoration: none;
             font-size: 13px;
-        }
-
-        .open-reel:hover {
-            background: rgba(255, 255, 255, 0.15);
         }
 
         footer {
@@ -430,7 +490,6 @@
         }
 
         @media (max-width: 850px) {
-
             body {
                 padding: 18px;
             }
@@ -456,10 +515,13 @@
             .reason-grid {
                 grid-template-columns: 1fr;
             }
+
+            .behavior-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 550px) {
-
             .brand h1 {
                 font-size: 27px;
             }
@@ -479,6 +541,10 @@
             .stats {
                 flex-direction: column;
             }
+
+            .behavior-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -488,7 +554,6 @@
 <div class="container">
 
     <header>
-
         <div class="brand">
             <h1>AI Reel Recommender</h1>
             <p>Intelligent educational content recommendation system</p>
@@ -498,14 +563,11 @@
             <div class="status-dot"></div>
             <span>Connecting...</span>
         </div>
-
     </header>
-
 
     <div id="loading" class="loading">
         Loading AI recommendation...
     </div>
-
 
     <div id="mainContent" style="display: none;">
 
@@ -527,7 +589,6 @@
                 </div>
 
             </div>
-
 
             <div class="card recommendation-card">
 
@@ -578,6 +639,78 @@
                 </a>
 
             </div>
+
+        </div>
+
+
+        <!-- ------------------------------------------
+             USER BEHAVIOR TRACKING
+        ------------------------------------------- -->
+
+        <div class="card behavior-card">
+
+            <div class="card-title">
+                User Behavior Tracking
+            </div>
+
+            <div class="behavior-grid">
+
+                <div class="behavior-stat">
+                    <span>Watch Time</span>
+                    <strong id="watchTime">0.0s</strong>
+                </div>
+
+                <div class="behavior-stat">
+                    <span>Completion</span>
+                    <strong id="completion">0%</strong>
+                </div>
+
+                <div class="behavior-stat">
+                    <span>Like</span>
+                    <strong id="likeStatus">No</strong>
+                </div>
+
+                <div class="behavior-stat">
+                    <span>Behavior Score</span>
+                    <strong id="behaviorScore">0</strong>
+                </div>
+
+            </div>
+
+            <div class="behavior-actions">
+
+                <button
+                    id="likeButton"
+                    class="behavior-button like-button"
+                    onclick="likeCurrentReel()"
+                >
+                    ♥ Like Reel
+                </button>
+
+                <button
+                    id="nextButton"
+                    class="behavior-button next-button"
+                    onclick="skipCurrentReel()"
+                >
+                    → Next / Skip
+                </button>
+
+                <button
+                    id="rewatchButton"
+                    class="behavior-button rewatch-button"
+                    onclick="rewatchCurrentReel()"
+                >
+                    ↻ Rewatch
+                </button>
+
+            </div>
+
+            <p
+                id="behaviorMessage"
+                class="behavior-message"
+            >
+                Watching this recommendation...
+            </p>
 
         </div>
 
@@ -638,23 +771,17 @@
 
                 <div class="reason">
                     <h3>Interest Match</h3>
-                    <p id="interestReason">
-                        --
-                    </p>
+                    <p id="interestReason">--</p>
                 </div>
 
                 <div class="reason">
                     <h3>Educational Value</h3>
-                    <p id="educationReason">
-                        --
-                    </p>
+                    <p id="educationReason">--</p>
                 </div>
 
                 <div class="reason">
                     <h3>Difficulty Match</h3>
-                    <p id="difficultyReason">
-                        --
-                    </p>
+                    <p id="difficultyReason">--</p>
                 </div>
 
             </div>
@@ -668,8 +795,10 @@
                 Recommendation Ranking
             </div>
 
-            <div class="ranking-list" id="rankingList">
-            </div>
+            <div
+                class="ranking-list"
+                id="rankingList"
+            ></div>
 
         </div>
 
@@ -688,7 +817,10 @@
     </div>
 
 
-    <div id="errorMessage" class="error-message"></div>
+    <div
+        id="errorMessage"
+        class="error-message"
+    ></div>
 
 
     <footer>
@@ -702,11 +834,33 @@
 
 const API_URL =
     "https://ai-reel-recommender-hs6f.onrender.com/api/recommendation";
-// --------------------------------------------------
+
+
+// ==================================================
+// REEL BEHAVIOR STATE
+// ==================================================
+
+let reelStartTime = null;
+
+let currentReel = null;
+
+let currentLiked = false;
+
+let currentRewatched = false;
+
+let currentSkipped = false;
+
+let timerInterval = null;
+
+
+// ==================================================
 // LOAD RECOMMENDATION
-// --------------------------------------------------
+// ==================================================
 
 async function loadRecommendation() {
+
+    // Stop previous reel tracking
+    stopReelTracking(false);
 
     const loading =
         document.getElementById("loading");
@@ -779,8 +933,7 @@ async function loadRecommendation() {
         loading.style.display = "none";
 
         errorMessage.textContent =
-            "Unable to connect to the recommendation API. " +
-            "Make sure Flask is running on port 5000.";
+            "Unable to connect to the recommendation API.";
 
         errorMessage.style.display = "block";
     }
@@ -798,9 +951,9 @@ async function loadRecommendation() {
 }
 
 
-// --------------------------------------------------
+// ==================================================
 // DISPLAY RECOMMENDATION
-// --------------------------------------------------
+// ==================================================
 
 function displayRecommendation(data) {
 
@@ -949,12 +1102,608 @@ function displayRecommendation(data) {
     renderRanking(
         data.ranking
     );
+
+
+    // Start behavior tracking
+    startReelTracking({
+
+        id:
+            recommendation.id ||
+            "unknown",
+
+        category:
+            recommendation.category ||
+            "unknown",
+
+        duration:
+            Number(
+                recommendation.duration ||
+                30
+            )
+    });
 }
 
 
-// --------------------------------------------------
+// ==================================================
+// START REEL TRACKING
+// ==================================================
+
+function startReelTracking(reel) {
+
+    currentReel = reel;
+
+    currentLiked = false;
+
+    currentRewatched = false;
+
+    currentSkipped = false;
+
+    reelStartTime =
+        Date.now();
+
+
+    resetBehaviorUI();
+
+
+    document.getElementById(
+        "behaviorMessage"
+    ).textContent =
+        "Watching " +
+        reel.category +
+        " reel...";
+
+
+    timerInterval =
+        setInterval(
+            updateWatchTimer,
+            500
+        );
+
+
+    console.log(
+        "Started watching:",
+        reel
+    );
+}
+
+
+// ==================================================
+// WATCH TIMER
+// ==================================================
+
+function updateWatchTimer() {
+
+    if (
+        !currentReel ||
+        !reelStartTime
+    ) {
+        return;
+    }
+
+
+    const watchTime =
+        (
+            Date.now() -
+            reelStartTime
+        ) / 1000;
+
+
+    const duration =
+        Number(
+            currentReel.duration ||
+            30
+        );
+
+
+    const completion =
+        Math.min(
+            (
+                watchTime /
+                duration
+            ) * 100,
+            100
+        );
+
+
+    document.getElementById(
+        "watchTime"
+    ).textContent =
+        watchTime.toFixed(1) +
+        "s";
+
+
+    document.getElementById(
+        "completion"
+    ).textContent =
+        completion.toFixed(0) +
+        "%";
+
+
+    const score =
+        calculateBehaviorScore(
+            watchTime,
+            duration,
+            currentLiked,
+            currentRewatched,
+            currentSkipped
+        );
+
+
+    document.getElementById(
+        "behaviorScore"
+    ).textContent =
+        score.toFixed(0);
+}
+
+
+// ==================================================
+// BEHAVIOR SCORE
+// ==================================================
+
+function calculateBehaviorScore(
+    watchTime,
+    duration,
+    liked,
+    rewatched,
+    skipped
+) {
+
+    duration =
+        Math.max(
+            Number(duration),
+            1
+        );
+
+
+    watchTime =
+        Math.max(
+            Number(watchTime),
+            0
+        );
+
+
+    const completion =
+        Math.min(
+            watchTime /
+            duration,
+            1
+        );
+
+
+    const watchScore =
+        completion * 50;
+
+
+    const likeScore =
+        liked ? 30 : 0;
+
+
+    const rewatchScore =
+        rewatched ? 15 : 0;
+
+
+    const skipPenalty =
+        skipped ? 20 : 0;
+
+
+    const finalScore =
+        watchScore +
+        likeScore +
+        rewatchScore -
+        skipPenalty;
+
+
+    return Math.max(
+        0,
+        Math.min(
+            finalScore,
+            100
+        )
+    );
+}
+
+
+// ==================================================
+// STOP REEL TRACKING
+// ==================================================
+
+function stopReelTracking(
+    showMessage = true
+) {
+
+    if (
+        !currentReel ||
+        !reelStartTime
+    ) {
+        return;
+    }
+
+
+    const watchTime =
+        (
+            Date.now() -
+            reelStartTime
+        ) / 1000;
+
+
+    const duration =
+        Number(
+            currentReel.duration ||
+            30
+        );
+
+
+    const completion =
+        Math.min(
+            (
+                watchTime /
+                duration
+            ) * 100,
+            100
+        );
+
+
+    const behaviorScore =
+        calculateBehaviorScore(
+            watchTime,
+            duration,
+            currentLiked,
+            currentRewatched,
+            currentSkipped
+        );
+
+
+    const behaviorData = {
+
+        reel_id:
+            currentReel.id,
+
+        category:
+            currentReel.category,
+
+        watch_time:
+            Number(
+                watchTime.toFixed(2)
+            ),
+
+        duration:
+            duration,
+
+        completion_percentage:
+            Number(
+                completion.toFixed(2)
+            ),
+
+        liked:
+            currentLiked,
+
+        rewatched:
+            currentRewatched,
+
+        skipped:
+            currentSkipped,
+
+        behavior_score:
+            Number(
+                behaviorScore.toFixed(2)
+            ),
+
+        timestamp:
+            new Date().toISOString()
+    };
+
+
+    saveBehavior(
+        behaviorData
+    );
+
+
+    console.log(
+        "REEL BEHAVIOR:",
+        behaviorData
+    );
+
+
+    if (showMessage) {
+
+        document.getElementById(
+            "behaviorMessage"
+        ).textContent =
+            "Behavior recorded. Score: " +
+            behaviorScore.toFixed(0) +
+            "/100";
+    }
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    timerInterval =
+        null;
+
+
+    currentReel = null;
+
+    reelStartTime = null;
+}
+
+
+// ==================================================
+// LIKE
+// ==================================================
+
+function likeCurrentReel() {
+
+    if (!currentReel) {
+        return;
+    }
+
+
+    currentLiked =
+        !currentLiked;
+
+
+    const button =
+        document.getElementById(
+            "likeButton"
+        );
+
+
+    document.getElementById(
+        "likeStatus"
+    ).textContent =
+        currentLiked
+            ? "Yes"
+            : "No";
+
+
+    button.textContent =
+        currentLiked
+            ? "♥ Liked"
+            : "♥ Like Reel";
+
+
+    updateWatchTimer();
+
+
+    document.getElementById(
+        "behaviorMessage"
+    ).textContent =
+        currentLiked
+            ? "Like recorded as a strong positive signal."
+            : "Like removed.";
+}
+
+
+// ==================================================
+// SKIP / NEXT
+// ==================================================
+
+function skipCurrentReel() {
+
+    if (!currentReel) {
+        return;
+    }
+
+
+    currentSkipped =
+        true;
+
+
+    stopReelTracking(
+        true
+    );
+
+
+    document.getElementById(
+        "behaviorMessage"
+    ).textContent =
+        "Reel skipped. Loading next recommendation...";
+
+
+    setTimeout(
+        function() {
+
+            loadRecommendation();
+
+        },
+        300
+    );
+}
+
+
+// ==================================================
+// REWATCH
+// ==================================================
+
+function rewatchCurrentReel() {
+
+    if (!currentReel) {
+        return;
+    }
+
+
+    currentRewatched =
+        true;
+
+
+    document.getElementById(
+        "behaviorMessage"
+    ).textContent =
+        "Rewatch detected — strong interest signal.";
+
+
+    updateWatchTimer();
+}
+
+
+// ==================================================
+// SAVE BEHAVIOR LOCALLY
+// ==================================================
+
+function saveBehavior(
+    behavior
+) {
+
+    let history = [];
+
+
+    try {
+
+        history =
+            JSON.parse(
+                localStorage.getItem(
+                    "reelBehaviorHistory"
+                )
+            ) || [];
+
+    }
+
+    catch {
+
+        history = [];
+    }
+
+
+    history.push(
+        behavior
+    );
+
+
+    // Keep last 100 interactions
+    if (
+        history.length > 100
+    ) {
+
+        history =
+            history.slice(
+                -100
+            );
+    }
+
+
+    localStorage.setItem(
+        "reelBehaviorHistory",
+        JSON.stringify(
+            history
+        )
+    );
+
+
+    updateLocalInterestProfile(
+        behavior
+    );
+}
+
+
+// ==================================================
+// CATEGORY INTEREST PROFILE
+// ==================================================
+
+function updateLocalInterestProfile(
+    behavior
+) {
+
+    let scores = {};
+
+
+    try {
+
+        scores =
+            JSON.parse(
+                localStorage.getItem(
+                    "categoryInterestScores"
+                )
+            ) || {};
+
+    }
+
+    catch {
+
+        scores = {};
+    }
+
+
+    const category =
+        behavior.category;
+
+
+    if (!scores[category]) {
+
+        scores[category] =
+            0;
+    }
+
+
+    scores[category] +=
+        Number(
+            behavior.behavior_score
+        );
+
+
+    localStorage.setItem(
+        "categoryInterestScores",
+        JSON.stringify(
+            scores
+        )
+    );
+
+
+    console.log(
+        "CATEGORY INTEREST:",
+        scores
+    );
+}
+
+
+// ==================================================
+// RESET BEHAVIOR UI
+// ==================================================
+
+function resetBehaviorUI() {
+
+    document.getElementById(
+        "watchTime"
+    ).textContent =
+        "0.0s";
+
+
+    document.getElementById(
+        "completion"
+    ).textContent =
+        "0%";
+
+
+    document.getElementById(
+        "likeStatus"
+    ).textContent =
+        "No";
+
+
+    document.getElementById(
+        "behaviorScore"
+    ).textContent =
+        "0";
+
+
+    document.getElementById(
+        "likeButton"
+    ).textContent =
+        "♥ Like Reel";
+
+
+    document.getElementById(
+        "behaviorMessage"
+    ).textContent =
+        "Watching this recommendation...";
+}
+
+
+// ==================================================
 // UPDATE SCORE
-// --------------------------------------------------
+// ==================================================
 
 function updateScore(score) {
 
@@ -991,11 +1740,13 @@ function updateScore(score) {
 }
 
 
-// --------------------------------------------------
+// ==================================================
 // RENDER RANKING
-// --------------------------------------------------
+// ==================================================
 
-function renderRanking(ranking) {
+function renderRanking(
+    ranking
+) {
 
     const rankingList =
         document.getElementById(
@@ -1003,7 +1754,8 @@ function renderRanking(ranking) {
         );
 
 
-    rankingList.innerHTML = "";
+    rankingList.innerHTML =
+        "";
 
 
     ranking.forEach(
@@ -1070,9 +1822,9 @@ function renderRanking(ranking) {
 }
 
 
-// --------------------------------------------------
+// ==================================================
 // API STATUS
-// --------------------------------------------------
+// ==================================================
 
 function updateApiStatus(
     connected
@@ -1113,17 +1865,23 @@ function updateApiStatus(
 }
 
 
-// --------------------------------------------------
+// ==================================================
 // FORMAT SCORE
-// --------------------------------------------------
+// ==================================================
 
-function formatScore(score) {
+function formatScore(
+    score
+) {
 
     const number =
         Number(score);
 
 
-    if (Number.isInteger(number)) {
+    if (
+        Number.isInteger(
+            number
+        )
+    ) {
 
         return number;
     }
@@ -1133,9 +1891,9 @@ function formatScore(score) {
 }
 
 
-// --------------------------------------------------
+// ==================================================
 // FORMAT EDUCATIONAL VALUE
-// --------------------------------------------------
+// ==================================================
 
 function formatEducationalValue(
     value
@@ -1145,13 +1903,17 @@ function formatEducationalValue(
         Number(value);
 
 
-    if (number >= 0.85) {
+    if (
+        number >= 0.85
+    ) {
 
         return "High";
     }
 
 
-    if (number >= 0.65) {
+    if (
+        number >= 0.65
+    ) {
 
         return "Medium";
     }
@@ -1161,11 +1923,13 @@ function formatEducationalValue(
 }
 
 
-// --------------------------------------------------
+// ==================================================
 // BASIC HTML ESCAPING
-// --------------------------------------------------
+// ==================================================
 
-function escapeHTML(value) {
+function escapeHTML(
+    value
+) {
 
     const div =
         document.createElement(
@@ -1181,9 +1945,30 @@ function escapeHTML(value) {
 }
 
 
-// --------------------------------------------------
+// ==================================================
+// PAGE VISIBILITY TRACKING
+// ==================================================
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        if (
+            document.hidden
+        ) {
+
+            stopReelTracking(
+                false
+            );
+        }
+
+    }
+);
+
+
+// ==================================================
 // START APPLICATION
-// --------------------------------------------------
+// ==================================================
 
 loadRecommendation();
 
